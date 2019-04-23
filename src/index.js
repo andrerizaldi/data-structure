@@ -36,21 +36,44 @@ const contacts = [
   }
 ];
 
-function view(contacts) {
-  contacts.map(function(data) {
-    console.log(
-      data.id,
-      data.fullName,
-      data.phoneNumber,
-      data.email,
-      data.gender
-    );
+let db = {
+  contacts: []
+};
+
+function view() {
+  let tbody = document.getElementById("table-rows");
+  contacts.map((data, index) => {
+      let row = tbody.insertRow();
+      let fullName = row.insertCell();
+      let phoneNumber = row.insertCell();
+      let email = row.insertCell();
+      let gender = row.insertCell();
+      let aksi = row.insertCell();
+      fullName.innerHTML = data.fullName;
+      phoneNumber.innerHTML = data.phoneNumber;
+      email.innerHTML = data.email;
+      gender.innerHTML = data.gender;
+      aksi.innerHTML = ("<button>Edit</button> <button>Hapus</button>");
   });
 }
 
-function add(data) {
-  let result = [...contacts, data];
-  return result;
+function add() {
+  var object = {
+    id: 6,
+    fullName: "ANDRE ",
+    phoneNumber: "008455497996",
+    email: "rizalandre07@bravesites.com",
+    gender: "Male"
+  }
+  contacts.push(object);
+  let tbody = document.getElementById("table-rows");
+  let tr = document.getElementsByTagName("TR");
+  
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+  }
+
+  view();
 }
 
 function edit(data, id) {
@@ -63,20 +86,23 @@ function edit(data, id) {
   return result;
 }
 
-function remove(data, id) {}
+function remove(data, id) {
 
-let myInput = {
-  id: 6,
-  fullName: "John Doe",
-  phoneNumber: "12345",
-  email: "johndoe@email.com",
-  gender: "Male"
-};
+}
+
+function updateDb(data){
+db.contacts = data;
+}
+
 
 let result;
-result = add(myInput);
-console.log(result);
+result = view();
 
-result = edit(myInput, 1);
-console.log(result);
-console.log(myInput);
+// updateDb(result);
+// console.log(db);
+
+result = add();
+// console.log(result);
+
+// result = edit(myInput, 1);
+// console.log(result);
