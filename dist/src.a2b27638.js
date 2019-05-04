@@ -118,10 +118,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"src/index.js":[function(require,module,exports) {
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+var i = 6;
 var contacts = [{
   id: 1,
   fullName: "Genna Arnli",
@@ -153,50 +150,160 @@ var contacts = [{
   email: "smaffi4@bravesites.com",
   gender: "Male"
 }];
-var db = {
-  contacts: []
+var search = document.getElementById('search');
+search.addEventListener('keyup', function (e) {
+  var val = e.target.value;
+  view('search', val);
+});
+var dataUi = null;
+
+var view = function view(gen) {
+  var val = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+  if (gen == null) {
+    var tbody = document.getElementById("table-rows");
+    tbody.innerHTML = "";
+    contacts.map(function (item, index) {
+      // buat table
+      var row = tbody.insertRow(); // kasih atribut agar mudah delete dan edit
+
+      row.setAttribute("id", "data_" + item.id); //isi kolom dengan data
+
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      cell1.innerHTML = item.id;
+      cell2.innerHTML = item.fullName;
+      cell3.innerHTML = item.email;
+      cell4.innerHTML = item.phoneNumber;
+      cell5.innerHTML = item.gender;
+      cell6.innerHTML = "\n      <a href=\"#\" id=\"hapus\" data-id=".concat(item.id, "> Hapus\n      </a>\n      <a href=\"#\" id=\"edit\" data-id=\"").concat(item.id, "\"> Edit\n      </a>\n    ");
+    });
+  } else if (gen == "male") {
+    var _tbody = document.getElementById("table-rows");
+
+    _tbody.innerHTML = "";
+    contacts.map(function (item, index) {
+      if (item.gender == "Male") {
+        var row = _tbody.insertRow();
+
+        row.setAttribute("id", "data_" + item.id);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        cell1.innerHTML = item.id;
+        cell2.innerHTML = item.fullName;
+        cell3.innerHTML = item.email;
+        cell4.innerHTML = item.phoneNumber;
+        cell5.innerHTML = item.gender;
+        cell6.innerHTML = "\n        <a href=\"#\" id=\"hapus\" data-id=".concat(item.id, "> Hapus\n        </a>\n        <a href=\"#\" id=\"edit\" data-id=\"").concat(item.id, "\"> Edit\n        </a>\n      ");
+      } // end
+
+    });
+  } else if (gen == "female") {
+    var _tbody2 = document.getElementById("table-rows");
+
+    _tbody2.innerHTML = "";
+    contacts.map(function (item, index) {
+      if (item.gender == "Female") {
+        var row = _tbody2.insertRow();
+
+        row.setAttribute("id", "data_" + item.id);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        cell1.innerHTML = item.id;
+        cell2.innerHTML = item.fullName;
+        cell3.innerHTML = item.email;
+        cell4.innerHTML = item.phoneNumber;
+        cell5.innerHTML = item.gender;
+        cell6.innerHTML = "\n        <a href=\"#\" id=\"hapus\" data-id=".concat(item.id, "> Hapus\n        </a>\n        <a href=\"#\" id=\"edit\" data-id=\"").concat(item.id, "\"> Edit\n        </a>\n      ");
+      }
+    });
+  } else {
+    var _tbody3 = document.getElementById("table-rows");
+
+    _tbody3.innerHTML = "";
+    contacts.map(function (item) {
+      if (item.fullName.toLowerCase().indexOf(val) != -1) {
+        var row = _tbody3.insertRow();
+
+        row.setAttribute("id", "data_" + item.id); //isi kolom dengan data
+
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        cell1.innerHTML = item.id;
+        cell2.innerHTML = item.fullName;
+        cell3.innerHTML = item.email;
+        cell4.innerHTML = item.phoneNumber;
+        cell5.innerHTML = item.gender;
+        cell6.innerHTML = "\n        <a href=\"#\" id=\"hapus\" data-id=".concat(item.id, "> Hapus\n        </a>\n        <a href=\"#\" id=\"edit\" data-id=\"").concat(item.id, "\"> Edit\n        </a>\n      ");
+      }
+    });
+  }
 };
 
-function view() {
-  var tbody = document.getElementById("table-rows");
-  contacts.map(function (data, index) {
-    var row = tbody.insertRow();
-    var fullName = row.insertCell();
-    var phoneNumber = row.insertCell();
-    var email = row.insertCell();
-    var gender = row.insertCell();
-    var aksi = row.insertCell();
-    fullName.innerHTML = data.fullName;
-    phoneNumber.innerHTML = data.phoneNumber;
-    email.innerHTML = data.email;
-    gender.innerHTML = data.gender;
-    aksi.innerHTML = "<button>Edit</button> <button>Hapus</button>";
-  });
+function add(data) {
+  var result = contacts.push(data);
+  return result;
 }
 
-function add() {
-  var object = {
-    id: 6,
-    fullName: "ANDRE ",
-    phoneNumber: "008455497996",
-    email: "rizalandre07@bravesites.com",
-    gender: "Male"
-  };
-  contacts.push(object);
-  var tbody = document.getElementById("table-rows");
-  var tr = document.getElementsByTagName("TR");
+function emailVal(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
+function validasi(fullName, email, phone) {
+  if (fullName != "" && email != "" && phone != "") {
+    if (fullName.length >= 3 && email.length >= 3 && phone.length >= 3) {
+      if (emailVal(email)) {
+        if (phone.match(/^[0-9]+$/)) {
+          return true;
+        } else {
+          alert('Phone Number Harus angka');
+          return false;
+        }
+      } else {
+        alert('Email tidak Valid \n example@mail.com');
+        return false;
+      }
+    } else {
+      alert('lebih dari 3');
+      return false;
+    }
+  } else {
+    alert('Tidak Boleh kosong');
+    return false;
   }
+}
 
-  view();
+function remove(id) {
+  var result = contacts.filter(function (item) {
+    return item.id !== id;
+  });
+  return result;
 }
 
 function edit(data, id) {
   var result = contacts.map(function (item) {
     if (item.id == id) {
-      return _objectSpread({}, item, data);
+      item.fullName = data.fullName;
+      item.phoneNumber = data.phoneNumber;
+      item.email = data.email;
+      item.gender = data.gender;
     }
 
     return item;
@@ -204,19 +311,152 @@ function edit(data, id) {
   return result;
 }
 
-function remove(data, id) {}
+document.addEventListener('click', function (e) {
+  function getInput() {
+    var fullname = document.getElementById("fullname");
+    var email = document.getElementById("email");
+    var phone = document.getElementById("phone");
+    var gender = document.getElementById("gender");
+    var data = {
+      fullName: fullname.value,
+      email: email.value,
+      phone: phone.value,
+      gender: gender.value
+    };
+    return data;
+  }
 
-function updateDb(data) {
-  db.contacts = data;
-}
+  function delInput() {
+    fullname.value = "";
+    phone.value = "";
+    email.value = "";
+  }
 
-var result;
-result = view(); // updateDb(result);
-// console.log(db);
+  if (e.target.id == 'hapus') {
+    var id = e.target.attributes[2].nodeValue;
+    var data = document.getElementById('data_' + id);
+    data.innerHTML = "";
+    remove(id);
+    fullname.value = "";
+    phone.value = "";
+    email.value = "";
+  }
 
-result = add(); // console.log(result);
-// result = edit(myInput, 1);
-// console.log(result);
+  if (e.target.id == 'edit') {
+    var _id = e.target.attributes[2].nodeValue;
+
+    var _fullname = document.getElementById("fullname");
+
+    var _email = document.getElementById("email");
+
+    var _phone = document.getElementById("phone");
+
+    var gender = document.getElementById("gender");
+    var data_id = document.getElementById("id");
+    var _data = [];
+    contacts.filter(function (item) {
+      if (item.id == _id) {
+        _data = item;
+      }
+    });
+    _fullname.value = _data.fullName;
+    _email.value = _data.email;
+    _phone.value = _data.phoneNumber;
+    gender.value = _data.gender;
+    data_id.value = _data.id;
+    var ubah = document.getElementById('tambah');
+    ubah.setAttribute('id', 'ubah');
+  }
+
+  if (e.target.id == 'ubah') {
+    var _fullname2 = document.getElementById("fullname");
+
+    var _email2 = document.getElementById("email");
+
+    var _phone2 = document.getElementById("phone");
+
+    var _gender = document.getElementById("gender");
+
+    var _data_id = document.getElementById("id");
+
+    var valid = validasi(_fullname2.value, _email2.value, _phone2.value);
+
+    if (valid) {
+      var data_tab = document.getElementById('data_' + _data_id.value);
+      data_tab.cells[1].innerHTML = _fullname2.value;
+      data_tab.cells[2].innerHTML = _email2.value;
+      data_tab.cells[3].innerHTML = _phone2.value;
+      data_tab.cells[4].innerHTML = _gender.value;
+      var myinput = {
+        fullName: _fullname2.value,
+        phoneNumber: _phone2.value,
+        email: _email2.value,
+        gender: _gender.value
+      };
+      edit(myinput, _data_id.value);
+      _fullname2.value = "";
+      _phone2.value = "";
+      _email2.value = "";
+
+      var _ubah = document.getElementById('ubah');
+
+      _ubah.setAttribute('id', 'tambah');
+
+      view(null);
+      return false;
+    }
+  }
+
+  if (e.target.id == 'tambah') {
+    var _data2 = getInput();
+
+    var _valid = validasi(_data2.fullName, _data2.email, _data2.phone);
+
+    if (_valid) {
+      var tbody = document.getElementById("table-rows");
+      var row = tbody.insertRow();
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      row.setAttribute('id', "data_".concat(i));
+      cell1.innerHTML = i;
+      cell2.innerHTML = _data2.fullName;
+      cell3.innerHTML = _data2.email;
+      cell4.innerHTML = _data2.phone;
+      cell5.innerHTML = _data2.gender;
+      cell6.innerHTML = "\n      <a href=\"#\" id=\"hapus\" data-id=\"".concat(i, "\"> Hapus\n      </a>\n      <a href=\"#\" id=\"edit\" data-id=\"").concat(i, "\"> Edit\n      </a>\n      ");
+      var _myinput = {
+        id: i++,
+        fullName: _data2.fullName,
+        phoneNumber: _data2.phone,
+        email: _data2.email,
+        gender: _data2.gender
+      };
+      add(_myinput);
+      view(null);
+      delInput();
+    }
+  }
+
+  if (e.target.id == "gender") {
+    var _data3 = e.target.attributes[3].nodeValue;
+
+    if (_data3 == "male") {
+      dataUi = 'male';
+    } else if (_data3 == "female") {
+      dataUi = "female";
+    } else {
+      dataUi = null;
+    }
+
+    view(dataUi);
+    return false;
+  }
+});
+view(dataUi);
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -245,7 +485,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57330" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53144" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Parcel Sandbox</title>
+	<title>Data Structure</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/styles.dd855970.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,6 +15,8 @@
 	</div>
 		<div class="container">
 			<div class="row">
+
+				<!-- Kolom Sebelah Kiri -->
 				<div class="col-md-3">
 					<div class="form-group">
 						<label><b>Full Name</b></label>
@@ -40,28 +42,55 @@
 					</div>
 
 					<div class="btn-save">
-						<button type="button" onclick="add()" class="sub-btn-save">Save</button>
+						<button type="button" id="tambah" class="sub-btn-save">Save</button>
 					</div>
 				</div>
 
-				<div class="col-md-8">
-					<div style="margin-top: 2%; margin-left: 2%;" class="row">
-						<div class="col-sm-8">
-							<input class="form-control" placeholder="Search..." type="search">
-						</div>
-						<div class="col-sm-4">
-							<button class="btn-filter">Filter By Gender</button>
-						</div>
-					</div>
+					<!-- Kolom Sebelah Kanan -->
+					<div class="col-md-8">
+						<div style="margin-top: 2%; margin-left: 2%;" class="row">
+							<div class="col-sm-8">
+								<input class="form-control" placeholder="Search..." type="search" id="search">
+							</div>
 
+							<!-- Button Filter by Gender -->
+							<div class="col-sm-4">
+								<form action="#">
+								<button type="button" class="btn btn-light text-secondary" data-toggle="modal" data-target="#exampleModal">
+									Filter By Gender</button>
+
+								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Filter By Gender</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												  	</button>
+											</div>
+
+												<div class="modal-body">
+													<button type="button" class="btn btn-primary" id="gender" data-val="all" data-dismiss="modal">All</button>
+													<button type="button" class="btn btn-success" id="gender" data-val="male" data-dismiss="modal">Male</button>
+													<button type="button" class="btn btn-warning" id="gender" data-val="female" data-dismiss="modal">Female</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					<!-- Tabel -->
 					<table style="margin-top: 3%;" class="table table-bordered">
 						<thead>
 							<tr>
+								<th scope="col"><center>Id</center></th>
 								<th scope="col"><center>Full Name</center></th>
 								<th scope="col"><center>Phone Number</center></th>
 								<th scope="col"><center>Email</center></th>
 								<th scope="col"><center>Gender</center></th>
-								<th scope="col"><center>&nbsp;</center></th>
+								<th scope="col"><center>Aksi</center></th>
 							</tr>
 						</thead>
 						<tbody id="table-rows">
@@ -76,20 +105,23 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/src.a2b27638.js"></script>
-	<script>function add() {
-  var tbody = document.getElementById("table-rows");
-  var row = tbody.insertRow();
-  var fullName = row.insertCell();
-  var phoneNumber = row.insertCell();
-  var email = row.insertCell();
-  var gender = row.insertCell();
-  var aksi = row.insertCell();
-  fullName.innerHTML = document.getElementById("fullname").value;
-  phoneNumber.innerHTML = document.getElementById("phone").value;
-  email.innerHTML = document.getElementById("email").value;
-  gender.innerHTML = document.getElementById("gender").value;
-  aksi.innerHTML = "<button>Edit</button> <button>Hapus</button>";
-}</script>
+	<!-- <script>
+		function add(){
+			let tbody = document.getElementById("table-rows");
+			let row = tbody.insertRow();
+			let fullName = row.insertCell();
+			let phoneNumber = row.insertCell();
+			let email = row.insertCell();
+			let gender = row.insertCell();
+			let aksi = row.insertCell();
+			fullName.innerHTML = document.getElementById("fullname").value;
+			phoneNumber.innerHTML = document.getElementById("phone").value;
+			email.innerHTML = document.getElementById("email").value;
+			gender.innerHTML = document.getElementById("gender").value;
+			aksi.innerHTML = ("<button>Edit</button> <button>Hapus</button>");
+		}
+			
+	</script> -->
 </body>
 
 </html>
